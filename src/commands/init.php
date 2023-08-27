@@ -1,5 +1,7 @@
 <?php
 
+global $cwd;
+
 function init($cwd) {
     if (file_exists("$cwd/absol.lock.json")) {
         echo "absol has been already initialized";
@@ -14,3 +16,5 @@ function init($cwd) {
     copy(__DIR__ . "/../dist/absol.json", "$cwd/absol.json");
     copy(__DIR__ . "/../dist/absol.json", "$cwd/absol.lock.json");
 }
+
+init($cwd);
