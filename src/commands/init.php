@@ -22,8 +22,6 @@ function init($cwd) {
     copy(__DIR__ . "/../../dist/import.php", "$cwd/absol/import.php");
     copy(__DIR__ . "/../../dist/user-defined-index-import.php", "$cwd/absol_modules/index.php");
 
-    touch("$cwd/absol/packages.json");
-
     copy(__DIR__ . "/../../dist/absol.json", "$cwd/absol.json");
     copy(__DIR__ . "/../../dist/absol.json", "$cwd/absol.lock.json");
 }
