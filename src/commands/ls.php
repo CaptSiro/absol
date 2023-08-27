@@ -4,6 +4,7 @@ global $cwd;
 
 require_once __DIR__ . "/../const.php";
 require_once __DIR__ . "/../file-name.php";
+require_once __DIR__ . "/../starts-with.php";
 
 
 
@@ -35,7 +36,16 @@ function ls($cwd, $args) {
 
 function ls_package($cwd, $package) {
     if (!file_exists("$cwd/absol/$package")) {
-        echo "Package '$package' does not exist";
+        $entries = scandir("$cwd/absol");
+
+        foreach ($entries as $entry) {
+            if ($entry === "." || $entry === ".." || is_dir("$cwd/absol/$package") || !starts_with($entry, $package) || in_array($package, CORE_DIR)) {
+                continue;
+            }
+
+            echo "$entry\n";
+        }
+
         return;
     }
 
