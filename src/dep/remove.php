@@ -1,15 +1,25 @@
 <?php
 
-function dep_remove($cwd, ...$git_repos) {
-    $json = json_decode(file_get_contents("$cwd/absol.json"));
+function dep_remove($config_file, $git_repo) {
+    if (!file_exists($config_file)) {
+        echo "Config file does not exist: '$config_file'";
+    }
+
+    $json = json_decode(file_get_contents("$config_file"));
 
     if (!isset($json->dependencies)) {
         return;
     }
 
-    $json->dependencies[] = array_diff($json->dependencies, $git_repos);
+    $index = array_search($git_repo, $json->dependencies);
 
-    file_put_contents("$cwd/absol.json", json_encode($json, JSON_PRETTY_PRINT));
+    if ($index === false) {
+        return;
+    }
 
-    generate_lock_file($cwd);
+    array_splice($json->dependencies, $index, 1);
+
+    file_put_contents("$config_file", json_encode($json, JSON_PRETTY_PRINT));
+
+    generate_lock_file($config_file);
 }
