@@ -5,6 +5,7 @@ global $cwd;
 require_once __DIR__ . "/../const.php";
 require_once __DIR__ . "/../file-name.php";
 require_once __DIR__ . "/../starts-with.php";
+require_once __DIR__ . "/../package-name.php";
 
 
 
@@ -12,12 +13,14 @@ function ls($cwd, $args) {
     $package = array_shift($args);
 
     if ($package !== null) {
-        if (in_array($package, CORE_DIR)) {
-            echo "Can not list '$package' because its name is reserved for core utility";
+        $package_name = package_name($package);
+
+        if (in_array($package_name, CORE_DIR)) {
+            echo "Can not list ". package_name_pretty($package_name) ." because its name is reserved for core utility";
             return;
         }
 
-        ls_package($cwd, $package);
+        ls_package($cwd, $package_name);
         return;
     }
 
