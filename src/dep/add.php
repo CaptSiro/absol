@@ -10,6 +10,10 @@ function dep_add($config_file, $git_repo) {
     if (!isset($json->dependencies)) {
         $json->dependencies = [$git_repo];
     } else {
+        if (in_array($git_repo, $json->dependencies)) {
+            return;
+        }
+
         $json->dependencies[] = $git_repo;
     }
 
