@@ -4,14 +4,16 @@ global $cwd;
 
 require_once __DIR__ . "/../package-name.php";
 require_once __DIR__ . "/../rmdir-recursive.php";
-require_once __DIR__ . "/../dep/get.php";
+require_once __DIR__ . "/../dep/remove.php";
 
 
 
-function drop($cwd, $package) {
+function drop($cwd, $git_repo) {
     global $dropped;
-    $dropped[] = $package;
 
+    $dropped[] = $git_repo;
+
+    $package = package_name($git_repo);
     $path = realpath("$cwd/absol/$package");
 
     if (!file_exists($path)) {
@@ -23,22 +25,21 @@ function drop($cwd, $package) {
 
     if ($deps !== false) {
         foreach ($deps as $dep) {
-            $p = package_name($dep);
-
-            if (in_array($p, $dropped)) {
+            if (in_array($dep, $dropped)) {
                 continue;
             }
 
-            drop($cwd, $p);
+            drop($cwd, $dep);
         }
     }
 
     $pretty = package_name_pretty($package);
 
-    echo "Do you want to remove $pretty? (dir: '$path')";
-    shell_exec("cmd /c rmdir /s $path");
+    echo "Do you want to remove $pretty? (dir: '$path')\n[y/n]: ";
+    $out = shell_exec("cmd /c rmdir /s $path");
+    echo "out = '". json_encode($out) ."'\n";
 
-    echo "$pretty has been and dropped on the floor and it shattered into pieces.\n";
+    dep_remove("$cwd/absol.json", $git_repo);
 }
 
 
