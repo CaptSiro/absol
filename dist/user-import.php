@@ -13,5 +13,6 @@ function import($package, $module = "") {
         throw new Exception("Package '$package' does not include ". ($module === "index" ? "default" : $module) ." absol module");
     }
 
+    var_dump(__DIR__ . "/$package/absol_modules/$module.php");
     require_once __DIR__ . "/$package/absol_modules/$module.php";
 }
