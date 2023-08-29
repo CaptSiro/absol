@@ -64,7 +64,7 @@ function ls_package($cwd, $package) {
         }
 
         if ($module === "index.php") {
-            echo "$module -> default package importer\n";
+            echo "[default package importer]\n";
             continue;
         }
 
