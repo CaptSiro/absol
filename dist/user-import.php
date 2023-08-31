@@ -18,6 +18,5 @@ function import($package, $module = "") {
         return false;
     }
 
-    var_dump(__DIR__ . "/$package/absol_modules/$module.php");
     require_once __DIR__ . "/$package/absol_modules/$module.php";
 }
