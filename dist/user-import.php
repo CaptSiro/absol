@@ -1,16 +1,21 @@
 <?php
 
+/**
+ * @param string $package get a list of available packages with `absol ls` command
+ * @param string $module get a list of available modules with `absol ls {{package}}` command
+ * @return void|false
+ */
 function import($package, $module = "") {
     if ($module === "") {
         $module = "index";
     }
 
     if (!file_exists(__DIR__ . "/$package")) {
-        throw new Exception("Package '$package' does not exists");
+        return false;
     }
 
     if (!file_exists(__DIR__ . "/$package/absol_modules/$module.php")) {
-        throw new Exception("Package '$package' does not include ". ($module === "index" ? "default" : $module) ." absol module");
+        return false;
     }
 
     var_dump(__DIR__ . "/$package/absol_modules/$module.php");
