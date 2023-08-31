@@ -21,5 +21,9 @@ function dep_remove($config_file, $git_repo) {
 
     file_put_contents("$config_file", json_encode($json, JSON_PRETTY_PRINT));
 
-    generate_lock_file($config_file);
+    $success = generate_lock_file($config_file);
+
+    if (!$success) {
+        echo "Could not generate lock file";
+    }
 }

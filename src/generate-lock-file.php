@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @param $config_file
+ * @return bool
+ */
 function generate_lock_file($config_file) {
     $dir = dirname($config_file);
 
