@@ -5,7 +5,7 @@ A Better SOLution package manager (totally not BASED on Pokémon)
 
 *Good luck, you will need it*
 
-***Currently only for Windows***
+***Currently only for Bash terminal*** So it will not work for Powershell or Windows Command Line
 
 Prerequisites:
 - git
@@ -15,7 +15,7 @@ Prerequisites:
 1. Download this repository as zip
 2. Extract it to your desired location
 3. Locate file `absol` inside extracted location (should be inside `extracted/absol-main`)
-4. Add location of parent directory to your PATH variable
+4. Add the location of the **parent** directory to your PATH variable
     - Example of location if the zip was extracted in Downloads folder: `C:\Users\<user>\Downloads\absol-main\absol-main`
     - [Windows tutorial for adding locations to PATH variable](https://www.computerhope.com/issues/ch000549.htm)
 5. Restart your computer
