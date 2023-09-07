@@ -5,6 +5,8 @@ global $cwd;
 require_once __DIR__ . "/../package-name.php";
 require_once __DIR__ . "/../rmdir-recursive.php";
 require_once __DIR__ . "/../dep/remove.php";
+require_once __DIR__ . "/../dep/get.php";
+require_once __DIR__ . "/../platform/get-platform.php";
 
 
 
@@ -33,11 +35,7 @@ function drop($cwd, $git_repo) {
         }
     }
 
-    $pretty = package_name_pretty($package);
-
-    echo "Do you want to remove $pretty? (dir: '$path')\n[y/n]: ";
-    $out = shell_exec("cmd /c rmdir /s $path");
-    echo "out = '". json_encode($out) ."'\n";
+    get_platform()->remove_package_dir($package, $path);
 
     dep_remove("$cwd/absol.json", $git_repo);
 }
